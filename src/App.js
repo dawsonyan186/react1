@@ -34,9 +34,15 @@ class App extends Component {
     todo.status = todo.status === 'completed' ? '' : 'completed'
     this.setState(this.state)
   }
+  delete(event, todo) {
+    todo.deleted = true
+    this.setState(this.state)
+  }
   render() {
     let todos = this.state.todoList.map((item, index) => {
-      return (<li key={index}><TodoItem todo={item} onToggle={this.toggle.bind(this)} /></li>)
+      return (<li key={index}><TodoItem todo={item} 
+        onToggle={this.toggle.bind(this)}
+        onDelete={this.delete.bind(this)} /></li>)
     })
     console.log(todos);
     return <div className="App">
