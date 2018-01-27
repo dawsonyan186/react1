@@ -8,8 +8,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      newTodo: 'Test',
-      todoList: []
+      newTodo: '',
+      todoList: [{title:'第一个代办'},{title:'第二个代办'},{title:'第三个代办'}]
     }
   }
   render() {
