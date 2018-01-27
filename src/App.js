@@ -39,11 +39,13 @@ class App extends Component {
     this.setState(this.state)
   }
   render() {
-    let todos = this.state.todoList.map((item, index) => {
-      return (<li key={index}><TodoItem todo={item} 
-        onToggle={this.toggle.bind(this)}
-        onDelete={this.delete.bind(this)} /></li>)
-    })
+    let todos = this.state.todoList
+      .filter((item)=> !item.deleted)
+      .map((item, index) => {
+        return (<li key={index}><TodoItem todo={item} 
+          onToggle={this.toggle.bind(this)}
+          onDelete={this.delete.bind(this)} /></li>)
+      })
     console.log(todos);
     return <div className="App">
       <h1>我的待办</h1>
