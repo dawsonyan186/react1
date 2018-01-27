@@ -24,30 +24,30 @@ class App extends Component {
       newTodo: '',
       todoList: this.state.todoList
     })
-    localStore.save('todoList', this.state.todoList)
   }
   changeTitle(event) {
     this.setState({
       newTodo: event.target.value,
       todoList: this.state.todoList
     })
-    localStore.save('todoList', this.state.todoList)
   }
   toggle(e, todo) {
     todo.status = todo.status === 'completed' ? '' : 'completed'
     this.setState(this.state)
-    localStore.save('todoList', this.state.todoList)
   }
   delete(event, todo) {
     todo.deleted = true
     this.setState(this.state)
+  }
+  componentDidUpdate() {
+    console.log("componentDidUpdate")
     localStore.save('todoList', this.state.todoList)
   }
   render() {
     let todos = this.state.todoList
-      .filter((item)=> !item.deleted)
+      .filter((item) => !item.deleted)
       .map((item, index) => {
-        return (<li key={index}><TodoItem todo={item} 
+        return (<li key={index}><TodoItem todo={item}
           onToggle={this.toggle.bind(this)}
           onDelete={this.delete.bind(this)} /></li>)
       })
