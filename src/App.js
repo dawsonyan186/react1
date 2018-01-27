@@ -3,14 +3,13 @@ import './App.css';
 import 'normalize.css'
 import TodoInput from './TodoInput'
 import TodoItem from './TodoItem'
-import * as localStore from './localStore'
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       newTodo: '',
-      todoList: localStore.load('todoList') || []
+      todoList:  []
     }
   }
   addTodo(event) {
@@ -41,7 +40,7 @@ class App extends Component {
   }
   componentDidUpdate() {
     console.log("componentDidUpdate")
-    localStore.save('todoList', this.state.todoList)
+  
   }
   render() {
     let todos = this.state.todoList
