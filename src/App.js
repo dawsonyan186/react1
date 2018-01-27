@@ -25,21 +25,24 @@ class App extends Component {
     })
   }
   changeTitle(event) {
-    console.log("app change title = "+event.target.value)
     this.setState({
       newTodo: event.target.value,
       todoList: this.state.todoList
     })
   }
+  toggle(e, todo) {
+    todo.status = todo.status === 'completed' ? '' : 'completed'
+    this.setState(this.state)
+  }
   render() {
     let todos = this.state.todoList.map((item, index) => {
-      return (<li key={index}><TodoItem todo={item} /></li>)
+      return (<li key={index}><TodoItem todo={item} onToggle={this.toggle.bind(this)} /></li>)
     })
     console.log(todos);
     return <div className="App">
       <h1>我的待办</h1>
       <div className="inputWrapper"></div>
-      <TodoInput content={this.state.newTodo} 
+      <TodoInput content={this.state.newTodo}
         onChange={this.changeTitle.bind(this)}
         onSubmit={this.addTodo.bind(this)} />
       <ol>
