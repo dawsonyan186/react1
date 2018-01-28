@@ -21,7 +21,7 @@ export default class UserDialog extends Component {
         e.preventDefault()
         let { username, password } = this.state.formData
         let success = (user) => {
-            console.log(user)
+            this.props.onSignUp.call(null,user);
         }
         let error = (error) => {
             switch (error.code) {
@@ -79,7 +79,7 @@ export default class UserDialog extends Component {
             </form>
         )
         let signInForm = (
-            <form className="signIn" onSubmit={this.signIn.bind(this, 'username')}> {/* 登录*/}
+            <form className="signIn" onSubmit={this.signIn.bind(this)}> {/* 登录*/}
                 <div className="row">
                     <label>用户名</label>
                     <input type="text"
