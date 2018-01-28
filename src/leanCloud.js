@@ -23,10 +23,19 @@ export function signUp(username, password, successFn, errorFn) {
     return undefined
 
 }
-function getUserFromAVUser(AVUser){
-      return {
+function getUserFromAVUser(AVUser) {
+    return {
         id: AVUser.id,
-        password:AVUser.password
-      }
+        username:AVUser.username,
+        password: AVUser.password
+    }
+}
+export function getCurrentUser() {
+    let user = AV.User.current()
+    if (user) {
+        return getUserFromAVUser(user)
+    } else {
+        return null
+    }
 }
 export default AV
