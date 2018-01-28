@@ -26,7 +26,7 @@ export function signUp(username, password, successFn, errorFn) {
 function getUserFromAVUser(AVUser) {
     return {
         id: AVUser.id,
-        username:AVUser.username,
+        username: AVUser.username,
         password: AVUser.password
     }
 }
@@ -37,5 +37,9 @@ export function getCurrentUser() {
     } else {
         return null
     }
+}
+export function signOut() {
+    AV.User.logOut()
+    return undefined
 }
 export default AV
