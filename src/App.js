@@ -87,13 +87,13 @@ class App extends Component {
     </div>;
   }
   onSignUpOrSignIn(user) {
-    let stateCopy = JSON.parse(JSON.stringify(this.state))
+    let stateCopy = stateCopy(this.state)
     stateCopy.user = user
     this.setState(stateCopy)
 
     if (user) {
       TodoModel.fetchTodoByUser(user, (todos) => {
-        let stateCopy = JSON.parse(JSON.stringify(this.state))
+        let stateCopy = stateCopy(this.state)
         stateCopy.todoList = todos
         this.setState(stateCopy)
       })
@@ -101,7 +101,7 @@ class App extends Component {
   }
   signOut() {
     signOut()
-    let stateCopy = JSON.parse(JSON.stringify(this.state))
+    let stateCopy = stateCopy(this.state)
     stateCopy.user = {}
     this.setState(stateCopy)
   }
@@ -113,4 +113,7 @@ let id = 0
 function idMaker() {
   id = 1
   return id
+}
+function stateCopy(state){
+  return JSON.parse(JSON.stringify(state))
 }
