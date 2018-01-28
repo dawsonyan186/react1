@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './UserDialog.css'
-import { signUp } from './leanCloud'
+import { signUp, signIn } from './leanCloud'
 export default class UserDialog extends Component {
     constructor(props) {
         super(props)
@@ -28,7 +28,17 @@ export default class UserDialog extends Component {
         }
         signUp(username, password, success, error)
     }
-    signIn(e) { }
+    signIn(e) {
+        e.preventDefault()
+        let { username, password } = this.state.formData
+        let success = (user) => {
+            this.props.onSignIn.call(null, user)
+        }
+        let error = (error) => {
+            alert(error)
+        }
+        signIn(username, password, success, error)
+    }
     changeFormData(key, e) {
         let stateCopy = JSON.parse(JSON.stringify(this.state))
         stateCopy.formData[key] = e.target.value
@@ -79,15 +89,15 @@ export default class UserDialog extends Component {
                 <div className="UserDialog">
                     <nav >
                         <label>
-                            <input type="radio" value="signUp" 
-                            checked={this.state.selected === 'signUp'}
-                            onChange={this.switch.bind(this)} />
+                            <input type="radio" value="signUp"
+                                checked={this.state.selected === 'signUp'}
+                                onChange={this.switch.bind(this)} />
                             注册
             </label>
                         <label>
-                            <input type="radio" value="signIn" 
-                            checked={this.state.selected === 'signIn'}
-                            onChange={this.switch.bind(this)} />
+                            <input type="radio" value="signIn"
+                                checked={this.state.selected === 'signIn'}
+                                onChange={this.switch.bind(this)} />
                             登录
             </label>
                     </nav>
