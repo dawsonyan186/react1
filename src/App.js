@@ -5,6 +5,7 @@ import TodoInput from './TodoInput'
 import TodoItem from './TodoItem'
 import UserDialog from './UserDialog'
 import { getCurrentUser, signOut,TodoModel } from './leanCloud'
+import {stateCopyFn,idMaker} from  './utils'
 
 class App extends Component {
   constructor(props) {
@@ -87,13 +88,13 @@ class App extends Component {
     </div>;
   }
   onSignUpOrSignIn(user) {
-    let stateCopy = stateCopy(this.state)
+    let stateCopy = stateCopyFn(this.state)
     stateCopy.user = user
     this.setState(stateCopy)
 
     if (user) {
       TodoModel.fetchTodoByUser(user, (todos) => {
-        let stateCopy = stateCopy(this.state)
+        let stateCopy = stateCopyFn(this.state)
         stateCopy.todoList = todos
         this.setState(stateCopy)
       })
@@ -101,19 +102,10 @@ class App extends Component {
   }
   signOut() {
     signOut()
-    let stateCopy = stateCopy(this.state)
+    let stateCopy = stateCopyFn(this.state)
     stateCopy.user = {}
     this.setState(stateCopy)
   }
 }
 
 export default App;
-
-let id = 0
-function idMaker() {
-  id = 1
-  return id
-}
-function stateCopy(state){
-  return JSON.parse(JSON.stringify(state))
-}
